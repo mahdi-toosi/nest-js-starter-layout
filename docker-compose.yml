@@ -1,0 +1,14 @@
+services:
+  postgresql:
+    image: bitnami/postgresql:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+    environment:
+      - POSTGRESQL_USERNAME=my_username
+      - POSTGRESQL_PASSWORD=my_password
+      - POSTGRESQL_DATABASE=zciti_root
+volumes:
+  postgresql_data:
+    driver: local

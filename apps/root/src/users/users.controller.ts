@@ -6,6 +6,7 @@ import {
 	Patch,
 	Param,
 	Delete,
+	Query,
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
@@ -16,27 +17,43 @@ export class UsersController {
 	constructor(private readonly usersService: UsersService) {}
 
 	@Post()
-	create(@Body() createUserDto: CreateUserDto) {
-		return this.usersService.create(createUserDto)
+	async create(
+		@Body() createUserDto: CreateUserDto,
+		@Query('crudQuery') crudQuery: string,
+	) {
+		const created = await this.usersService.create(createUserDto, { crudQuery })
+		return created
 	}
 
 	@Get()
-	findAll() {
-		return this.usersService.findAll()
+	async findMany(@Query('crudQuery') crudQuery: string) {
+		const matches = await this.usersService.findMany({ crudQuery })
+		return matches
 	}
 
 	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.usersService.findOne(+id)
+	async findOne(
+		@Param('id') id: string,
+		@Query('crudQuery') crudQuery: string,
+	) {
+		const match = await this.usersService.findOne(id, { crudQuery })
+		return match
 	}
 
 	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-		return this.usersService.update(+id, updateUserDto)
+	async update(
+		@Param('id') id: string,
+		@Body() updateUserDto: UpdateUserDto,
+		@Query('crudQuery') crudQuery: string,
+	) {
+		const updated = await this.usersService.update(id, updateUserDto, {
+			crudQuery,
+		})
+		return updated
 	}
 
 	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.usersService.remove(+id)
+	async remove(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
+		return this.usersService.remove(id, { crudQuery })
 	}
 }
