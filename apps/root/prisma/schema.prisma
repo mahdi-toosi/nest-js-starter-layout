@@ -1,0 +1,18 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "../../../node_modules/@prisma/rootClient"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Users {
+    id         Int     @id @default(autoincrement())
+    first_name String? @db.VarChar(250)
+    last_name  String? @db.VarChar(250)
+    mobile     String  @unique @db.VarChar(10)
+
+    @@index([mobile])
+}

@@ -1,14 +1,14 @@
 services:
-  postgresql:
-    image: bitnami/postgresql:latest
-    ports:
-      - '5432:5432'
-    volumes:
-      - 'postgresql_data:/bitnami/postgresql'
-    environment:
-      - POSTGRESQL_USERNAME=my_username
-      - POSTGRESQL_PASSWORD=my_password
-      - POSTGRESQL_DATABASE=zciti_root
+    postgresql:
+        # image: bitnami/postgresql:latest
+        image: c1bdab2342f80da2bc661a9ff4c43c8b277ba6b703f682a0d0bc8275355da967
+        ports:
+            - '5530:5432'
+        volumes:
+            - 'postgresql_data:/bitnami/postgresql'
+        env_file:
+            - './apps/root/.env'
+    # .env needs POSTGRESQL_USERNAME, POSTGRESQL_PASSWORD, POSTGRESQL_DATABASE
 volumes:
-  postgresql_data:
-    driver: local
+    postgresql_data:
+        driver: local

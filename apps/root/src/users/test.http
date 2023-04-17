@@ -1,0 +1,26 @@
+@moduleAddress = http://localhost:4000/api/v1/users
+
+### get tests
+GET {{moduleAddress}}
+
+### create test
+POST {{moduleAddress}}
+content-type: application/json
+
+{
+	"first_name": "mahdi",
+	"last_name": "toosi",
+	"mobile": "9380339899"
+}
+
+### update test
+Patch {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a
+content-type: application/json
+
+{
+	"title": "update test documents"
+}
+
+### update test
+DELETE  {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a
+content-type: application/json

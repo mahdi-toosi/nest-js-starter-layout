@@ -7,7 +7,6 @@ export class UsersService extends PrismaCrudService {
 		super({
 			model: 'users',
 			allowedJoins: [],
-			defaultJoins: [],
 		})
 	}
 }
