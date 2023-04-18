@@ -1,31 +1,28 @@
+import * as Joi from 'joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PrismaCrudModule } from 'nestjs-prisma-crud'
 import { UsersModule } from './users/users.module'
 import { PrismaService as prismaService } from './prisma.service'
-import * as z from 'zod'
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			validationSchema: {
-				validate: () =>
-					z.object({
-						ROOT_PORT: z.string(),
+			validationSchema: Joi.object({
+				ROOT_PORT: Joi.string().required(),
 
-						ROOT_DATABASE_URL: z.string(),
-						ROOT_POSTGRESQL_PORT: z.string(),
-						ROOT_POSTGRESQL_DOMAIN: z.string(),
-						ROOT_POSTGRESQL_DATABASE: z.string(),
-						ROOT_POSTGRESQL_USERNAME: z.string(),
-						ROOT_POSTGRESQL_PASSWORD: z.string(),
+				DATABASE_URL: Joi.string().required(),
+				POSTGRESQL_PORT: Joi.string().required(),
+				POSTGRESQL_DOMAIN: Joi.string().required(),
+				POSTGRESQL_DATABASE: Joi.string().required(),
+				POSTGRESQL_USERNAME: Joi.string().required(),
+				POSTGRESQL_PASSWORD: Joi.string().required(),
 
-						JWT_SECRET: z.string(),
-						JWT_EXPIRATION: z.string(),
-					}),
-			},
-			envFilePath: 'apps/root/.env',
+				JWT_SECRET: Joi.string().required(),
+				JWT_EXPIRATION: Joi.string().required(),
+			}),
+			envFilePath: `${process.cwd()}/apps/root/prisma/.env`,
 		}),
 		UsersModule,
 		PrismaCrudModule.register({ prismaService }),

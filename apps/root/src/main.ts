@@ -1,3 +1,4 @@
+import helmet from 'helmet'
 import { NestFactory } from '@nestjs/core'
 import { RootModule } from './root.module'
 import { ConfigService } from '@nestjs/config'
@@ -5,6 +6,10 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 
 async function bootstrap() {
 	const app = await NestFactory.create(RootModule)
+
+	app.use(helmet())
+
+	// app.enableCors();
 
 	const config = new DocumentBuilder()
 		.setTitle('users example')

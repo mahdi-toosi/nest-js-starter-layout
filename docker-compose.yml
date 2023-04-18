@@ -7,7 +7,7 @@ services:
         volumes:
             - 'postgresql_data:/bitnami/postgresql'
         env_file:
-            - './apps/root/.env'
+            - './apps/root/prisma/.env'
     # .env needs POSTGRESQL_USERNAME, POSTGRESQL_PASSWORD, POSTGRESQL_DATABASE
 volumes:
     postgresql_data:

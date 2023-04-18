@@ -7,7 +7,7 @@ const moduleName = process.argv[2]
 
 const moduleNames = ['root']
 
-const envPath = `apps/${moduleName}/.env`
+const envPath = `apps/${moduleName}/prisma/.env`
 const schemaPath = `apps/${moduleName}/prisma/schema.prisma`
 const seederPath = `apps/${moduleName}/prisma/seeds`
 

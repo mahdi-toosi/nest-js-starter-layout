@@ -7,7 +7,7 @@ COMMAND=$2
 THIRD_ARG=$3
 MODULE_NAME=$1
 
-ENV_PATH="apps/${MODULE_NAME}/.env"
+ENV_PATH="apps/${MODULE_NAME}/prisma/.env"
 SEEDER_PATH="apps/${MODULE_NAME}/prisma/seeds/index.ts"
 SCHEMA_PATH="apps/${MODULE_NAME}/prisma/schema.prisma"
 

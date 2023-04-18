@@ -2,10 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
+import { ConfigService } from '@nestjs/config'
 
 @Controller('/api/v1/users')
 export class UsersController {
-	constructor(private readonly usersService: UsersService) {}
+	constructor(private readonly usersService: UsersService, private readonly env: ConfigService) {}
 
 	@Post()
 	async create(@Body() createUserDto: CreateUserDto, @Query('crudQuery') crudQuery: string) {
@@ -15,6 +16,8 @@ export class UsersController {
 
 	@Get()
 	async findMany(@Query('crudQuery') crudQuery: string) {
+		console.log(this.env.get('ROOT_PORT'))
+
 		const result = await this.usersService.findMany({ crudQuery })
 		return result
 	}

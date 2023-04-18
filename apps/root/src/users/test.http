@@ -13,14 +13,14 @@ content-type: application/json
 	"mobile": "9380339899"
 }
 
-### update test
-Patch {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a
-content-type: application/json
+# ### update test
+# Patch {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a
+# content-type: application/json
 
-{
-	"title": "update test documents"
-}
+# {
+# 	"title": "update test documents"
+# }
 
-### update test
-DELETE  {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a
-content-type: application/json
+# ### update test
+# DELETE  {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a
+# content-type: application/json
