@@ -8,12 +8,6 @@ import { ConfigService } from '@nestjs/config'
 export class UsersController {
 	constructor(private readonly usersService: UsersService, private readonly env: ConfigService) {}
 
-	@Post()
-	async create(@Body() createUserDto: CreateUserDto, @Query('crudQuery') crudQuery: string) {
-		const result = await this.usersService.create(createUserDto, { crudQuery })
-		return result
-	}
-
 	@Get()
 	async findMany(@Query('crudQuery') crudQuery: string) {
 		console.log(this.env.get('ROOT_PORT'))
@@ -28,9 +22,15 @@ export class UsersController {
 		return result
 	}
 
+	@Post()
+	async create(@Body() createUserDto: CreateUserDto, @Query('crudQuery') crudQuery: string) {
+		const result = await this.usersService.create(createUserDto, { crudQuery })
+		return result
+	}
+
 	@Patch(':id')
 	async update(
-		@Param('id') id: string,
+		@Param('id') id: number,
 		@Body() updateUserDto: UpdateUserDto,
 		@Query('crudQuery') crudQuery: string
 	) {
@@ -41,7 +41,7 @@ export class UsersController {
 	}
 
 	@Delete(':id')
-	async remove(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
+	async remove(@Param('id') id: number, @Query('crudQuery') crudQuery: string) {
 		return this.usersService.remove(id, { crudQuery })
 	}
 }

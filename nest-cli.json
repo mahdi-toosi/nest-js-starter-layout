@@ -27,6 +27,15 @@
 			"compilerOptions": {
 				"tsConfigPath": "libs/common/tsconfig.lib.json"
 			}
+		},
+		"translated-class-validator": {
+			"type": "library",
+			"root": "libs/translated-class-validator",
+			"entryFile": "index",
+			"sourceRoot": "libs/translated-class-validator/src",
+			"compilerOptions": {
+				"tsConfigPath": "libs/translated-class-validator/tsconfig.lib.json"
+			}
 		}
 	}
 }
