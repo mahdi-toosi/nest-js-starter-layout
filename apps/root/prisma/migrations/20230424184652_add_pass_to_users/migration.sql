@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Users" ADD COLUMN     "password" VARCHAR(250),
+ALTER COLUMN "mobile" SET DATA TYPE VARCHAR(11);
