@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { ConfigService } from '@nestjs/config'
 
-@Controller('/api/v1/users')
+@Controller('v1/users')
 export class UsersController {
 	constructor(private readonly usersService: UsersService, private readonly env: ConfigService) {}
 

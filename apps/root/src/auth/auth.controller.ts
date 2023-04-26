@@ -4,7 +4,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard'
 import { Request } from 'express'
 import type { Users as User } from '@prisma/rootClient'
 
-@Controller('api/v1/auth')
+@Controller('v1/auth')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
