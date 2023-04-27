@@ -8,8 +8,8 @@ POST {{moduleAddress}}/login
 content-type: application/json
 
 {
-	"mobile": "93803398",
-	"password": "mahdi"
+	"mobile": "9380339889",
+	"password": "9380339888"
 }
 
 # ### update test

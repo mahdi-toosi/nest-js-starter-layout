@@ -41,6 +41,7 @@
 		"class-validator": "^0.14.0",
 		"helmet": "^6.1.5",
 		"joi": "^17.9.1",
+		"nest-access-control": "^2.2.0",
 		"nestjs-prisma-crud": "^1.0.0-beta.16",
 		"passport": "^0.6.0",
 		"passport-jwt": "^4.0.1",

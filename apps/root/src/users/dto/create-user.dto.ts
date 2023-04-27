@@ -13,4 +13,8 @@ export class CreateUserDto implements Partial<User> {
 	@IsString('mobile')
 	@MinLength('mobile', 10)
 	mobile: string
+
+	@IsString('password')
+	@MinLength('password', 6)
+	password: string
 }

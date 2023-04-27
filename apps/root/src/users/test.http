@@ -10,16 +10,18 @@ content-type: application/json
 {
 	"first_name": "mahdi",
 	"last_name": "toosi",
-	"mobile": "93803398"
+	"mobile": "9380339889",
+	"password": "9380339888"
 }
 
-# ### update test
-# Patch {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a
-# content-type: application/json
+### update test
+Patch {{moduleAddress}}/12
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdF9uYW1lIjoidG9vc2kiLCJmaXJzdF9uYW1lIjoibWFoZGkiLCJpYXQiOjE2ODI1NDQ4MDksImV4cCI6MTY4MjU0ODQwOX0.FpZZZN7nCCma4Gxzf5gEjVeUX8V7fLxbG7f4Sj5KxXQ
 
-# {
-# 	"title": "update test documents"
-# }
+{
+	"first_name": "mahdi"
+}
 
 # ### update test
 # DELETE  {{moduleAddress}}/2700ee67-16b0-4638-9f2b-dd30ef6f3f5a

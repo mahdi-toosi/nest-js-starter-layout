@@ -5,6 +5,10 @@ import { PrismaCrudModule } from 'nestjs-prisma-crud'
 import { UsersModule } from './users/users.module'
 import { PrismaService as prismaService } from './prisma.service'
 import { AuthModule } from './auth/auth.module'
+import { ACGuard, AccessControlModule } from 'nest-access-control'
+import { RBAC_POLICY } from './auth/rbac-policy'
+import { APP_GUARD } from '@nestjs/core'
+import JwtAuthGuard from './auth/guards/jwt-auth.guard'
 
 @Module({
 	imports: [
@@ -27,9 +31,13 @@ import { AuthModule } from './auth/auth.module'
 		}),
 		UsersModule,
 		PrismaCrudModule.register({ prismaService }),
+		AccessControlModule.forRoles(RBAC_POLICY),
 		AuthModule,
 	],
 	controllers: [],
-	providers: [],
+	providers: [
+		{ provide: APP_GUARD, useClass: JwtAuthGuard },
+		{ provide: APP_GUARD, useClass: ACGuard },
+	],
 })
 export class RootModule {}

@@ -1,7 +1,6 @@
 services:
     postgresql:
-        # image: bitnami/postgresql:latest
-        image: c1bdab2342f80da2bc661a9ff4c43c8b277ba6b703f682a0d0bc8275355da967
+        image: bitnami/postgresql:latest
         ports:
             - '5530:5432'
         volumes:

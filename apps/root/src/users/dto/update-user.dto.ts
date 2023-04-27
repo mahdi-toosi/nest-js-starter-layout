@@ -1,8 +1,10 @@
 import { PartialType } from '@nestjs/swagger'
 import { CreateUserDto } from './create-user.dto'
-import { IsNumber } from 'class-validator'
+import { IsNumberString } from 'class-validator'
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {
-	@IsNumber()
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
+
+export class UpdateUserParamsDto {
+	@IsNumberString()
 	id: number
 }

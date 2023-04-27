@@ -9,11 +9,15 @@ datasource db {
 }
 
 model Users {
-    id         Int     @id @default(autoincrement())
-    first_name String? @db.VarChar(250)
-    last_name  String? @db.VarChar(250)
-    mobile     String  @unique @db.VarChar(11)
-    password   String? @db.VarChar(250)
+    id         Int      @id @default(autoincrement())
+    first_name String?  @db.VarChar(250)
+    last_name  String?  @db.VarChar(250)
+    mobile     String   @unique @db.VarChar(11)
+    password   String   @db.VarChar(250)
+    role       String[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     @@index([mobile])
 }
