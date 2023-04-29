@@ -3,7 +3,7 @@ import { AuthService } from './auth.service'
 import { LocalAuthGuard } from './guards/local-auth.guard'
 import { Request } from 'express'
 import { PublicRoute } from './decorators/PublicRoute'
-import type { Users as User } from '@prisma/rootClient'
+import type { User } from 'apps/root/types'
 
 @Controller('v1/auth')
 export class AuthController {

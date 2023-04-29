@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import type { Users as User } from '@prisma/rootClient'
+import type { User } from 'apps/root/types'
 
 export default async function (count: number) {
 	const data = []

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaCrudService } from 'nestjs-prisma-crud'
 import { PrismaService } from '../prisma.service'
-import type { Users as User } from '@prisma/rootClient'
+import type { User } from 'apps/root/types'
 
 @Injectable()
 export class UsersService extends PrismaCrudService {
