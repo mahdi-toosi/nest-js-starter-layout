@@ -1,58 +1,47 @@
-import {
-	Controller,
-	Get,
-	Post,
-	Body,
-	Patch,
-	Param,
-	Delete,
-	Query,
-	ConflictException,
-} from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto, UpdateUserParamsDto } from './dto/update-user.dto'
-import { ConfigService } from '@nestjs/config'
+import { UpdateUserDto } from './dto/update-user.dto'
 import { UseRoles } from 'nest-access-control'
 import { PublicRoute } from '../auth/decorators/PublicRoute'
-import type { Users as User } from '@prisma/rootClient'
-import { Role } from '../auth/rbac-policy'
+import { ApiTags } from '@nestjs/swagger'
+import { User, Role } from 'apps/root/types'
+import { CurrentUser } from '@app/common'
+import { ChangeRolDto } from './dto/change-role.dto'
+import { Get, Post, Body, Patch, Param, Delete, Query, Controller } from '@nestjs/common'
+import { ConflictException, ForbiddenException } from '@nestjs/common'
 
+@ApiTags('users')
 @Controller('v1/users')
 export class UsersController {
-	constructor(private readonly usersService: UsersService, private readonly env: ConfigService) {}
+	constructor(private readonly usersService: UsersService) {}
 
-	@UseRoles({
-		resource: 'users',
-		action: 'read',
-		possession: 'any',
-	})
+	@UseRoles({ resource: 'users', action: 'read' })
 	@Get()
 	async findMany(@Query('crudQuery') crudQuery: string) {
 		const result = await this.usersService.findMany({ crudQuery })
 		return result
 	}
 
-	@UseRoles({
-		resource: 'users',
-		action: 'read',
-		possession: 'any',
-	})
+	@UseRoles({ resource: 'user', action: 'read' })
 	@Get(':id')
-	async findOne(@Param('id') id: string, @Query('crudQuery') crudQuery: string) {
-		const result = await this.usersService.findOne(id, { crudQuery })
+	async findOne(@Param('id') id: number, @CurrentUser() user: User) {
+		if (!user.roles.includes(Role.ADMIN) && user.id !== id) throw new ForbiddenException()
+
+		const result = await this.usersService.findOne(id, { crudQuery: undefined })
 		return result
 	}
 
 	@PublicRoute()
 	@Post()
-	async create(@Body() createUserDto: CreateUserDto, @Query('crudQuery') crudQuery: string) {
-		const userWithDefaultRole = { ...createUserDto, role: Role.USER }
+	async create(@Body() createUserDto: CreateUserDto) {
+		const userWithDefaultRole = { ...createUserDto, roles: Role.USER }
 
 		const existedUser = await this.usersService.findOneByMobile(userWithDefaultRole.mobile)
 		if (existedUser) throw new ConflictException('شماره همراه قبلا به ثبت رسیده است.')
 
-		const user = (await this.usersService.create(userWithDefaultRole, { crudQuery })) as User
+		const user = (await this.usersService.create(userWithDefaultRole, {
+			crudQuery: undefined,
+		})) as User
 
 		if (user) {
 			delete user.mobile
@@ -61,30 +50,29 @@ export class UsersController {
 		return user
 	}
 
-	// @UseRoles({
-	// 	resource: 'users',
-	// 	action: 'update',
-	// 	possession: 'any',
-	// })
+	@UseRoles({ resource: 'users', action: 'update' })
 	@Patch(':id')
 	async update(
-		@Param() params: UpdateUserParamsDto,
+		@Param('id') id: number,
 		@Body() updateUserDto: UpdateUserDto,
-		@Query('crudQuery') crudQuery: string
+		@CurrentUser() user: User
 	) {
-		const result = await this.usersService.update(params.id, updateUserDto, {
-			crudQuery,
-		})
+		if (!user.roles.includes(Role.ADMIN) && user.id !== id) throw new ForbiddenException()
+
+		const result = await this.usersService.update(id, updateUserDto, { crudQuery: undefined })
 		return result
 	}
 
-	@UseRoles({
-		resource: 'users',
-		action: 'delete',
-		possession: 'any',
-	})
+	@UseRoles({ resource: 'users', action: 'delete' })
 	@Delete(':id')
-	async remove(@Param() params: UpdateUserParamsDto, @Query('crudQuery') crudQuery: string) {
-		return this.usersService.remove(params.id, { crudQuery })
+	async remove(@Param('id') id: number) {
+		return this.usersService.remove(id, { crudQuery: undefined })
+	}
+
+	@UseRoles({ resource: 'change-user-role', action: 'update' })
+	@Patch(':id/change-role')
+	async changeRole(@Param('id') id: number, @Body() changeRolDto: ChangeRolDto) {
+		const result = await this.usersService.update(id, changeRolDto, { crudQuery: undefined })
+		return result
 	}
 }

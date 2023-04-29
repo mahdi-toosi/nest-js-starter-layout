@@ -1,21 +1,22 @@
 import { RolesBuilder } from 'nest-access-control'
-export enum Role {
-	USER = 'USER',
-	ADMIN = 'ADMIN',
-	MANAGER = 'MANAGER',
-}
+import { Role } from 'apps/root/types'
 
 const RBAC_POLICY: RolesBuilder = new RolesBuilder()
+
+enum Resource {
+	users = 'users',
+}
 
 // prettier-ignore
 RBAC_POLICY
 	.grant(Role.USER)
-		.readOwn('users')
-		.updateOwn('users')
+		.read('user')
+		.update(Resource.users)
 	.grant(Role.ADMIN)
 		.extend(Role.USER)
-		.resource('users')
-	.deny(Role.ADMIN)
-		.read('managedEmployeeData')
+		.update('change-user-role')
+		.create([Resource.users])
+		.read([Resource.users])
+		.delete([Resource.users])
 
 export { RBAC_POLICY }
