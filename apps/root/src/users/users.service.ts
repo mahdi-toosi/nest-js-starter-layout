@@ -15,4 +15,8 @@ export class UsersService extends PrismaCrudService {
 	findOneByMobile(mobile: string): Promise<User | null> {
 		return this.prisma.users.findFirst({ where: { mobile } })
 	}
+
+	findById(id: number) {
+		return this.prisma.users.findFirst({ where: { id } })
+	}
 }
