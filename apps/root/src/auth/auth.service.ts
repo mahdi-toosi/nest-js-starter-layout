@@ -3,6 +3,8 @@ import { UsersService } from '../users/users.service'
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
 import type { User } from 'apps/root/types'
+import { Role } from 'apps/root/types'
+import type { SignUp } from './dto/sign-up.dto'
 
 @Injectable()
 export class AuthService {
@@ -43,5 +45,16 @@ export class AuthService {
 
 		if (user) return user
 		else throw new UnauthorizedException('Unable to get the user from token')
+	}
+
+	async signUp(payload: SignUp) {
+		const data = { ...payload, roles: Role.USER }
+		const user = await this.usersService.create(data, { crudQuery: undefined })
+
+		if (user) {
+			delete user.mobile
+			delete user.password
+		}
+		return user
 	}
 }
