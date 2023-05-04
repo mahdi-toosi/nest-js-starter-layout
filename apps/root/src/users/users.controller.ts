@@ -31,23 +31,10 @@ export class UsersController {
 		return result
 	}
 
-	@PublicRoute()
+	@UseRoles({ resource: 'users', action: 'create' })
 	@Post()
-	async create(@Body() createUserDto: CreateUserDto) {
-		const userWithDefaultRole = { ...createUserDto, roles: Role.USER }
-
-		const existedUser = await this.usersService.findOneByMobile(userWithDefaultRole.mobile)
-		if (existedUser) throw new ConflictException('شماره همراه قبلا به ثبت رسیده است.')
-
-		const user = (await this.usersService.create(userWithDefaultRole, {
-			crudQuery: undefined,
-		})) as User
-
-		if (user) {
-			delete user.mobile
-			delete user.password
-		}
-		return user
+	create(@Body() createUserDto: CreateUserDto) {
+		return this.usersService.create(createUserDto as User)
 	}
 
 	@UseRoles({ resource: 'users', action: 'update' })
