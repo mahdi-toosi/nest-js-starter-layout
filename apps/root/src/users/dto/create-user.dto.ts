@@ -1,4 +1,4 @@
-import { IsString, MaxLength, MinLength } from '@lib/translated-class-validator'
+import { IsMobileNumber, IsString, MinLength } from '@lib/translated-class-validator'
 import { Injectable } from '@nestjs/common'
 import { ApiProperty } from '@nestjs/swagger'
 import type { User } from 'apps/root/types'
@@ -16,9 +16,7 @@ export class CreateUserDto implements Partial<User> {
 	last_name: string
 
 	@ApiProperty()
-	@IsString('mobile')
-	@MinLength('mobile', 10)
-	@MaxLength('mobile', 10)
+	@IsMobileNumber()
 	mobile: string
 
 	@ApiProperty()
