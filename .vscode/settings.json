@@ -11,5 +11,6 @@
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true
 	},
-	"hide-files.files": []
+	"hide-files.files": [],
+	"cSpell.language": "en,fa"
 }
