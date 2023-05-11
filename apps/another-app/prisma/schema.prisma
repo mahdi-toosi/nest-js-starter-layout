@@ -1,0 +1,17 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "../../../node_modules/@prisma/anotherServiceClient"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Services {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-MODULE_NAMES=("root")
+MODULE_NAMES=("root" "another-app")
 COMMANDS=("seed" "pull" "studio" "push" "generate" "reset" "deploy" "migrate" "rollback")
 
 COMMAND=$2

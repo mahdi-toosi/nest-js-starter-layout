@@ -36,6 +36,15 @@
 			"compilerOptions": {
 				"tsConfigPath": "libs/translated-class-validator/tsconfig.lib.json"
 			}
+		},
+		"another-app": {
+			"type": "application",
+			"root": "apps/another-app",
+			"entryFile": "main",
+			"sourceRoot": "apps/another-app/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/another-app/tsconfig.app.json"
+			}
 		}
 	}
 }

@@ -5,7 +5,7 @@ const thirdArg = process.argv[4]
 const command = process.argv[3]
 const moduleName = process.argv[2]
 
-const moduleNames = ['root']
+const moduleNames = ['root', 'another-app']
 
 const envPath = `apps/${moduleName}/prisma/.env`
 const schemaPath = `apps/${moduleName}/prisma/schema.prisma`
