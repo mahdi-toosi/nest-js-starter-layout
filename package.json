@@ -25,7 +25,8 @@
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config apps/root/test/jest-e2e.json",
-		"db": "ts-node scripts/db.ts"
+		"db": "ts-node scripts/db.ts",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@nestjs/common": "^9.0.0",
@@ -53,6 +54,8 @@
 		"swagger-ui-express": "^4.6.0"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^17.6.3",
+		"@commitlint/config-conventional": "^17.6.3",
 		"@faker-js/faker": "^7.6.0",
 		"@nestjs/cli": "^9.0.0",
 		"@nestjs/schematics": "^9.0.0",
@@ -70,7 +73,9 @@
 		"eslint": "^8.0.1",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
+		"husky": "^8.0.3",
 		"jest": "29.3.1",
+		"lint-staged": "^13.2.2",
 		"nestjs-prisma-crud-schematics": "^1.0.0-beta.12",
 		"prettier": "^2.3.2",
 		"source-map-support": "^0.5.20",
