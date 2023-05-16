@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PrismaCrudModule } from 'nestjs-prisma-crud'
 import { PrismaService as prismaService } from './prisma.service'
-import { ACGuard } from 'nest-access-control'
-import { APP_GUARD } from '@nestjs/core'
+// import { ACGuard } from 'nest-access-control'
+// import { APP_GUARD } from '@nestjs/core'
 import { validateEnvParams } from '@app/common'
 
 @Module({
@@ -26,6 +26,8 @@ import { validateEnvParams } from '@app/common'
 		PrismaCrudModule.register({ prismaService }),
 	],
 	controllers: [],
-	providers: [{ provide: APP_GUARD, useClass: ACGuard }],
+	providers: [
+		// { provide: APP_GUARD, useClass: ACGuard }
+	],
 })
-export class AnotherServiceModule {}
+export class AnotherAppModule {}

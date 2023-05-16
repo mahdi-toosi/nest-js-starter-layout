@@ -1,13 +1,24 @@
 services:
-    postgresql:
+    postgresql_root:
         image: bitnami/postgresql:latest
         ports:
             - '5530:5432'
         volumes:
-            - 'postgresql_data:/bitnami/postgresql'
+            - 'postgresql_root_data:/bitnami/postgresql'
         env_file:
             - './apps/root/prisma/.env'
     # .env needs POSTGRESQL_USERNAME, POSTGRESQL_PASSWORD, POSTGRESQL_DATABASE
+    postgresql_another_app:
+        image: bitnami/postgresql:latest
+        ports:
+            - '5531:5432'
 volumes:
-    postgresql_data:
+            - 'postgresql_another_app_data:/bitnami/postgresql'
+        env_file:
+            - './apps/another-app/prisma/.env'
+    # .env needs POSTGRESQL_USERNAME, POSTGRESQL_PASSWORD, POSTGRESQL_DATABASE
+volumes:
+    postgresql_root_data:
+        driver: local
+    postgresql_another_app_data:
         driver: local

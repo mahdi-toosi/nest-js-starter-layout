@@ -1,12 +1,12 @@
 import helmet from 'helmet'
 import { NestFactory } from '@nestjs/core'
-import { AnotherServiceModule } from './another-app.module'
+import { AnotherAppModule } from './another-app.module'
 import { ConfigService } from '@nestjs/config'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
 
 async function bootstrap() {
-	const app = await NestFactory.create(AnotherServiceModule)
+	const app = await NestFactory.create(AnotherAppModule)
 
 	app.setGlobalPrefix('api')
 
@@ -22,10 +22,10 @@ async function bootstrap() {
 	// app.enableCors();
 
 	const config = new DocumentBuilder()
-		.setTitle('users example')
-		.setDescription('The users API description')
+		.setTitle('another app example')
+		.setDescription('The another app API description')
 		.setVersion('0.0')
-		.addTag('users')
+		.addTag('another app')
 		.build()
 
 	const swaggerDocument = SwaggerModule.createDocument(app, config)

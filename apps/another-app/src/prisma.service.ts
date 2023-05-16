@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaClient } from '@prisma/anotherServiceClient'
+import { PrismaClient } from '@prisma/anotherAppClient'
 // ? types
 import type { OnModuleInit, OnModuleDestroy } from '@nestjs/common'
 
