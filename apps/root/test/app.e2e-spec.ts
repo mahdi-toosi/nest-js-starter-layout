@@ -1,8 +1,8 @@
-import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing'
-import type { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
 import { RootModule } from './../src/root.module'
+import type { TestingModule } from '@nestjs/testing'
+import type { INestApplication } from '@nestjs/common'
 
 describe('RootController (e2e)', () => {
 	let app: INestApplication
@@ -17,9 +17,6 @@ describe('RootController (e2e)', () => {
 	})
 
 	it('/ (GET)', () => {
-		return request(app.getHttpServer())
-			.get('/')
-			.expect(200)
-			.expect('Hello World!')
+		return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!')
 	})
 })
