@@ -8,25 +8,34 @@ import { ACGuard, AccessControlModule } from 'nest-access-control'
 import { RBAC_POLICY } from './auth/rbac-policy'
 import { APP_GUARD } from '@nestjs/core'
 import JwtAuthGuard from './auth/guards/jwt-auth.guard'
-import { validateEnvParams } from '@app/common'
+import { RmqModule, validateEnvParams } from '@app/common'
+
+const envParams = [
+	'ROOT_PORT',
+
+	'JWT_SECRET',
+	'JWT_EXPIRATION',
+
+	'DATABASE_URL',
+	'POSTGRESQL_PORT',
+	'POSTGRESQL_DOMAIN',
+	'POSTGRESQL_DATABASE',
+	'POSTGRESQL_USERNAME',
+	'POSTGRESQL_PASSWORD',
+
+	'RABBIT_MQ_URI',
+	'RABBIT_MQ_ROOT_QUEUE',
+	'RABBIT_MQ_ANOTHER_SERVICE_QUEUE',
+]
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			validationSchema: validateEnvParams([
-				'ROOT_PORT',
-				'JWT_SECRET',
-				'DATABASE_URL',
-				'JWT_EXPIRATION',
-				'POSTGRESQL_PORT',
-				'POSTGRESQL_DOMAIN',
-				'POSTGRESQL_DATABASE',
-				'POSTGRESQL_USERNAME',
-				'POSTGRESQL_PASSWORD',
-			]),
+			validationSchema: validateEnvParams(envParams),
 			envFilePath: `${process.cwd()}/apps/root/prisma/.env`,
 		}),
+		RmqModule,
 		UsersModule,
 		PrismaCrudModule.register({ prismaService }),
 		AccessControlModule.forRoles(RBAC_POLICY),

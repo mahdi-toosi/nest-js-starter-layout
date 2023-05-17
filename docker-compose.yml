@@ -1,4 +1,8 @@
 services:
+    rabbitmq:
+        image: rabbitmq
+        ports:
+            - '5672:5672'
     postgresql_root:
         image: bitnami/postgresql:latest
         ports:
@@ -12,7 +16,7 @@ services:
         image: bitnami/postgresql:latest
         ports:
             - '5531:5432'
-volumes:
+        volumes:
             - 'postgresql_another_app_data:/bitnami/postgresql'
         env_file:
             - './apps/another-app/prisma/.env'

@@ -4,9 +4,14 @@ import { AnotherAppModule } from './another-app.module'
 import { ConfigService } from '@nestjs/config'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
+import { RmqService } from '@app/common'
+import type { RmqOptions } from '@nestjs/microservices'
 
 async function bootstrap() {
 	const app = await NestFactory.create(AnotherAppModule)
+
+	const rmqService = app.get<RmqService>(RmqService)
+	app.connectMicroservice<RmqOptions>(rmqService.getOptions('ANOTHER_SERVICE', true))
 
 	app.setGlobalPrefix('api')
 

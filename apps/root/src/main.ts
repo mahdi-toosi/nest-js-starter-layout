@@ -4,9 +4,14 @@ import { RootModule } from './root.module'
 import { ConfigService } from '@nestjs/config'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
+import { RmqService } from '@app/common'
+import type { RmqOptions } from '@nestjs/microservices'
 
 async function bootstrap() {
 	const app = await NestFactory.create(RootModule)
+
+	const rmqService = app.get<RmqService>(RmqService)
+	app.connectMicroservice<RmqOptions>(rmqService.getOptions('ROOT', true))
 
 	app.setGlobalPrefix('api')
 
@@ -33,6 +38,7 @@ async function bootstrap() {
 
 	const configService = app.get(ConfigService)
 
+	await app.startAllMicroservices()
 	await app.listen(configService.get('ROOT_PORT'))
 }
 bootstrap()

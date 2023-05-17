@@ -4,7 +4,7 @@ import { PrismaCrudModule } from 'nestjs-prisma-crud'
 import { PrismaService as prismaService } from './prisma.service'
 // import { ACGuard } from 'nest-access-control'
 // import { APP_GUARD } from '@nestjs/core'
-import { validateEnvParams } from '@app/common'
+import { RmqModule, validateEnvParams } from '@app/common'
 
 @Module({
 	imports: [
@@ -23,6 +23,7 @@ import { validateEnvParams } from '@app/common'
 			]),
 			envFilePath: `${process.cwd()}/apps/another-app/prisma/.env`,
 		}),
+		RmqModule,
 		PrismaCrudModule.register({ prismaService }),
 	],
 	controllers: [],
