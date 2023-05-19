@@ -5,6 +5,7 @@ import { PrismaService as prismaService } from './prisma.service'
 // import { ACGuard } from 'nest-access-control'
 // import { APP_GUARD } from '@nestjs/core'
 import { RmqModule, validateEnvParams } from '@app/common'
+import { AnotherModuleModule } from './another-module/another-module.module'
 
 @Module({
 	imports: [
@@ -25,6 +26,7 @@ import { RmqModule, validateEnvParams } from '@app/common'
 		}),
 		RmqModule,
 		PrismaCrudModule.register({ prismaService }),
+		AnotherModuleModule,
 	],
 	controllers: [],
 	providers: [
